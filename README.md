@@ -1,1 +1,2 @@
-# react-with-firebase
+# Getting Started with Create React App
+
