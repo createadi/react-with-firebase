@@ -2,25 +2,27 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { collection, getDocs,addDoc,getFirestore } from "firebase/firestore"; 
-import { async } from "@firebase/util";
+const dotenv = require('dotenv');
+dotenv.config();
 
-
-
+//Set Up the .env file with all the details
 const firebaseConfig = {
-  apiKey: "AIzaSyDn2S7LjA0fGMg5ooN2S5hiAXKDilcDQRw",
-  authDomain: "airbus-b40bc.firebaseapp.com",
-  projectId: "airbus-b40bc",
-  storageBucket: "airbus-b40bc.appspot.com",
-  messagingSenderId: "883099355502",
-  appId: "1:883099355502:web:dcd3b64be3b0636b4d597f",
-  measurementId: "G-RRJPZ0RFW7"
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
+  measurementId: process.env.REACT_APP_measurementId
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+// Initializing the Cloudstore Database
 const db = getFirestore(app);
 
+// Example code for user to post data to the database
 async function postData(databaseName,collectionName, messageData){
   
     try {
@@ -32,16 +34,17 @@ async function postData(databaseName,collectionName, messageData){
         console.error("Error adding document: ", e);
       }
 }
-// postData(db,"user","Its fun to be around..")
-async function getData(){
+
+// Boilerplate code for Fetching Data from Firestore Cloudstore Database
+// async function getData(){
     
-    const querySnapshot = await getDocs(collection(db, "user"));
+//     const querySnapshot = await getDocs(collection(db, "user"));
 
-    querySnapshot.forEach((doc) => {
-        return(`${doc.id} => ${doc.data().message}`);
-    });
+//     querySnapshot.forEach((doc) => {
+//         return(`${doc.id} => ${doc.data().message}`);
+//     });
 
-}
+// }
 // postData(db,"user","Hello from Server. Love you 3000 ❤️")
 // getData(db,"user")
 export default firebaseConfig;
